@@ -66,16 +66,16 @@
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/price_text_view"
+        android:layout_above="@+id/order_summary_text_view"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
-        android:text="PRICE"
+        android:text="ORDER SUMMARY"
         android:textSize="20sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
 
     <TextView
-        android:id="@+id/price_text_view"
+        android:id="@+id/order_summary_text_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -95,6 +95,6 @@
         android:onClick="submitOrder"
         android:text="ORDER"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/price_text_view" />
+        app:layout_constraintTop_toBottomOf="@+id/order_summary_text_view" />
 
 </android.support.constraint.ConstraintLayout>
