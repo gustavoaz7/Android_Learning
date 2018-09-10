@@ -15,6 +15,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 /**
@@ -55,6 +56,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void increment(View view) {
+        if (quantity == 100) {
+            Toast.makeText(this, "Limit of 100 units per order.", Toast.LENGTH_SHORT).show();
+            return;
+        }
         quantity = quantity + 1;
         displayQuantity(quantity);
         int price = calculatePrice(quantity);
@@ -62,6 +67,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void decrement(View view) {
+        if (quantity == 1) {
+            Toast.makeText(this, "You cannot have less than 1 coffee. ", Toast.LENGTH_SHORT).show();
+            return;
+        }
         quantity = quantity - 1;
         displayQuantity(quantity);
         int price = calculatePrice(quantity);
