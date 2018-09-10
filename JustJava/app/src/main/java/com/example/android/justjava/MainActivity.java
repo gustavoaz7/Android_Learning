@@ -13,9 +13,9 @@ package com.example.android.justjava;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.TextView;
 
-import java.text.NumberFormat;
 
 /**
  * This app displays an order form to order coffee.
@@ -23,6 +23,8 @@ import java.text.NumberFormat;
 public class MainActivity extends AppCompatActivity {
 
     int quantity = 0;
+    boolean whipCream = false;
+    boolean chocolate = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,12 +35,23 @@ public class MainActivity extends AppCompatActivity {
 //    This method is called when the order button is clicked.
     public void submitOrder(View view) {
         displayQuantity(quantity);
-        String orderSummaryMessage = createOrderSummary(quantity);
+
+        int price = calculatePrice(quantity);
+        EditText nameField = (EditText) findViewById(R.id.name);
+        String name = nameField.getText().toString();
+        String orderSummaryMessage = createOrderSummary(quantity, price, name);
         displayMessage(orderSummaryMessage);
     }
 
-    private int calculatePrice(int price) {
-        return price * 4;
+    private int calculatePrice(int quantity) {
+        int unitPrice = 4;
+        if (whipCream) {
+            unitPrice += 1;
+        }
+        if (chocolate) {
+            unitPrice += 2;
+        }
+        return unitPrice * quantity;
     }
 
     public void increment(View view) {
@@ -58,7 +71,7 @@ public class MainActivity extends AppCompatActivity {
 //    This method displays the given quantity value on the screen.
     private void displayQuantity(int number) {
         TextView quantityTextView = (TextView) findViewById(R.id.quantity_text_view);
-        quantityTextView.setText("" + number);
+        quantityTextView.setText(String.valueOf(number));
     }
 
     private void displayMessage(String message) {
@@ -73,9 +86,22 @@ public class MainActivity extends AppCompatActivity {
         orderSummaryTextView.setText(message);
     }
 
-    private String createOrderSummary(int quantity) {
-        int price = calculatePrice(quantity);
-        String message = "Name: Guss";
+    public void toggleWhipCream(View view) {
+        whipCream = !whipCream;
+    }
+
+    public void toggleChocolate(View view) {
+        chocolate = !chocolate;
+    }
+
+    private String createOrderSummary(int quantity, int price, String name) {
+        String message = "Name: " + name;
+        if (whipCream) {
+            message += "\nAdd Whipped cream";
+        };
+        if (chocolate) {
+            message += "\nAdd Chocolate";
+        }
         message += "\nQuantity: " + quantity;
         message += "\nTotal: $" + price;
         message += "\nThank you!";
