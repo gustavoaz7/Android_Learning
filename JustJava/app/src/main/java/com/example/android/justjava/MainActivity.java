@@ -22,7 +22,7 @@ import android.widget.TextView;
  */
 public class MainActivity extends AppCompatActivity {
 
-    int quantity = 0;
+    int quantity = 1;
     boolean whipCream = false;
     boolean chocolate = false;
 
@@ -88,10 +88,14 @@ public class MainActivity extends AppCompatActivity {
 
     public void toggleWhipCream(View view) {
         whipCream = !whipCream;
+        int price = calculatePrice(quantity);
+        displayPrice(price);
     }
 
     public void toggleChocolate(View view) {
         chocolate = !chocolate;
+        int price = calculatePrice(quantity);
+        displayPrice(price);
     }
 
     private String createOrderSummary(int quantity, int price, String name) {
