@@ -20,7 +20,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
-/**
+/**Gus
  * This app displays an order form to order coffee.
  */
 public class MainActivity extends AppCompatActivity {
@@ -46,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
 
         Intent intent = new Intent(Intent.ACTION_SENDTO);
         intent.setData(Uri.parse("mailto:"));
-        intent.putExtra(Intent.EXTRA_SUBJECT, "JustJava Coffee Order to " + name);
+        intent.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.mail_subject) + name);
         intent.putExtra(Intent.EXTRA_TEXT, orderSummaryMessage);
         if (intent.resolveActivity(getPackageManager()) != null) {
             startActivity(intent);
@@ -66,7 +66,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void increment(View view) {
         if (quantity == 100) {
-            Toast.makeText(this, "Limit of 100 units per order.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getString(R.string.toast_max), Toast.LENGTH_SHORT).show();
             return;
         }
         quantity += 1;
@@ -77,7 +77,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void decrement(View view) {
         if (quantity == 1) {
-            Toast.makeText(this, "You cannot have less than 1 coffee. ", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getString(R.string.toast_min), Toast.LENGTH_SHORT).show();
             return;
         }
         quantity -= 1;
@@ -117,16 +117,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private String createOrderSummary(int quantity, int price, String name) {
-        String message = "Name: " + name;
-        if (whipCream) {
-            message += "\nAdd Whipped cream";
-        };
-        if (chocolate) {
-            message += "\nAdd Chocolate";
-        }
-        message += "\nQuantity: " + quantity;
-        message += "\nTotal: $" + price;
-        message += "\nThank you!";
+        String message = getString(R.string.order_name) + name;
+        if (whipCream) message += getString(R.string.add_w_cream);
+        if (chocolate) message += getString(R.string.add_choc);
+        message += getString(R.string.order_quantity) + quantity;
+        message += getString(R.string.order_total) + price;
+        message += getString(R.string.order_thanks);
         return message;
     }
 

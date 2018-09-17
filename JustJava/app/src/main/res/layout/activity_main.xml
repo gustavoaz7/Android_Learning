@@ -11,7 +11,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
-        android:text="QUANTITY"
+        android:text="@string/quantity"
         android:textSize="20sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/checkBox" />
@@ -30,7 +30,6 @@
             android:id="@+id/plusBtn"
             android:layout_width="48dp"
             android:layout_height="48dp"
-            android:layout_above="@+id/quantity_text_view"
             android:onClick="increment"
             android:text="+"
             app:layout_constraintStart_toStartOf="parent"
@@ -40,8 +39,6 @@
             android:id="@+id/quantity_text_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
             android:layout_marginLeft="8dp"
             android:layout_marginRight="8dp"
             android:text="1"
@@ -53,7 +50,6 @@
             android:id="@+id/minusBtn"
             android:layout_width="48dp"
             android:layout_height="48dp"
-            android:layout_alignParentEnd="true"
             android:elevation="0dp"
             android:onClick="decrement"
             android:text="-"
@@ -69,7 +65,7 @@
         android:layout_above="@+id/order_summary_text_view"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
-        android:text="ORDER SUMMARY"
+        android:text="@string/order_summary"
         android:textSize="20sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
@@ -93,7 +89,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:onClick="submitOrder"
-        android:text="ORDER"
+        android:text="@string/order"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/order_summary_text_view" />
 
@@ -103,7 +99,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
-        android:text="TOPPINGS"
+        android:text="@string/toppings"
         android:textSize="20sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/name" />
@@ -117,7 +113,7 @@
         android:checked="false"
         android:onClick="toggleWhipCream"
         android:paddingLeft="24dp"
-        android:text="Whipped cream"
+        android:text="@string/whipped_cream"
         android:textSize="16sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView3" />
@@ -129,7 +125,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:paddingLeft="24dp"
-        android:text="Chocolate"
+        android:text="@string/chocolate"
         android:onClick="toggleChocolate"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/whip_cream" />
@@ -143,7 +139,7 @@
         android:layout_marginTop="16dp"
         android:ems="10"
         android:inputType="textCapWords"
-        android:hint="Name"
+        android:hint="@string/hint_name"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

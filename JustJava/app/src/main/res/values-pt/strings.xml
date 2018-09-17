@@ -1,0 +1,23 @@
+<resources>
+    <string name="app_name">Just Java</string>
+    <string name="toppings">COBERTURAS</string>
+    <string name="order_summary">PEDIDO</string>
+    <string name="quantity">QUANTIDADE</string>
+    <string name="order">PEDIR</string>
+    <string name="whipped_cream">Chantilly</string>
+    <string name="chocolate">Chocolate</string>
+    <string name="hint_name">Nome</string>
+
+    <string name="order_name">"Nome: "</string>
+    <string name="order_quantity">"\nQuantidade: "</string>
+    <string name="order_total">\nTotal: $</string>
+    <string name="order_thanks">\nObrigado!</string>
+
+    <string name="add_w_cream">\nAdicionar Chantilly</string>
+    <string name="add_choc">\nAdicionar Chocolate</string>
+
+    <string name="toast_max">Limite de 100 unidades por pedido.</string>
+    <string name="toast_min">Pedido mínimo de 1 café.</string>
+
+    <string name="mail_subject">"JustJava Pedido para "</string>
+</resources>
