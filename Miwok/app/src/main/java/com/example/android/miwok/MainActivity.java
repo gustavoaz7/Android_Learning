@@ -15,26 +15,39 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         TextView numbers = (TextView) findViewById(R.id.numbers);
-        numbers.setOnClickListener(new NumbersClickListener());
-    }
+        numbers.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(MainActivity.this, NumbersActivity.class);
+                startActivity(i);
+            }
+        });
 
-    public void openNumbersList(View v) {
-        Intent i = new Intent(this, NumbersActivity.class);
-        startActivity(i);
-    }
+        TextView phrases = (TextView) findViewById(R.id.phrases);
+        phrases.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(MainActivity.this, PhrasesActivity.class);
+                startActivity(i);
+            }
+        });
 
-    public void openPhrasesList(View v) {
-        Intent i = new Intent(this, PhrasesActivity.class);
-        startActivity(i);
-    }
+        TextView colors = (TextView) findViewById(R.id.colors);
+        colors.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(MainActivity.this, ColorsActivity.class);
+                startActivity(i);
+            }
+        });
 
-    public void openColorsList(View v) {
-        Intent i = new Intent(this, ColorsActivity.class);
-        startActivity(i);
-    }
-
-    public void openFamilyList(View v) {
-        Intent i = new Intent(this, FamilyActivity.class);
-        startActivity(i);
+        TextView family = (TextView) findViewById(R.id.family);
+        family.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(MainActivity.this, FamilyActivity.class);
+                startActivity(i);
+            }
+        });
     }
 }
