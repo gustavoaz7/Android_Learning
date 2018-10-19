@@ -6,16 +6,19 @@ public class Word {
     private String mDefault;
     private String mMiwok;
     private int mImageResourceId = NO_IMAGE;
+    private int mAudioResourceId;
 
-    public Word(String defaultWord, String miwokWord) {
+    public Word(String defaultWord, String miwokWord, int audioResourceId) {
         mDefault = defaultWord;
         mMiwok = miwokWord;
+        mAudioResourceId = audioResourceId;
     }
 
-    public Word(String defaultWord, String miwokWord, int imageResourceId) {
+    public Word(String defaultWord, String miwokWord, int imageResourceId, int audioResourceId) {
         mDefault = defaultWord;
         mMiwok = miwokWord;
         mImageResourceId = imageResourceId;
+        mAudioResourceId = audioResourceId;
     }
 
     public String getDefault() {
@@ -32,5 +35,9 @@ public class Word {
 
     public boolean hasImage() {
         return mImageResourceId != NO_IMAGE;
+    }
+
+    public int getAudioResouceId() {
+        return mAudioResourceId;
     }
 }
