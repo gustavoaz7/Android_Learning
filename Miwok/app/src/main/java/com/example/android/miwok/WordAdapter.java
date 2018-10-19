@@ -3,6 +3,7 @@ package com.example.android.miwok;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,11 +15,14 @@ import java.util.ArrayList;
 
 public class WordAdapter extends ArrayAdapter<Word> {
 
-    public WordAdapter(Context context, ArrayList<Word> words) {
+    private int mColorResourceId;
+
+    public WordAdapter(Context context, ArrayList<Word> words, int colorResourceId) {
         // resource: The resource ID for a layout file containing a TextView to use when instantiating views.
         // It is used when the ArrayAdapter is populating a single TextView.
         // Because this is a custom adapter for two TextViews, 'resource' will not be used therefore any int value is allowed.
         super(context, 0, words);
+        mColorResourceId = colorResourceId;
     }
 
     @NonNull
@@ -45,6 +49,10 @@ public class WordAdapter extends ArrayAdapter<Word> {
         } else {
             image.setVisibility(View.GONE);
         }
+
+        View textContainer = listItem.findViewById(R.id.text_container);
+        int color = ContextCompat.getColor(getContext(), mColorResourceId);
+        textContainer.setBackgroundColor(color);
 
 
         return listItem;
