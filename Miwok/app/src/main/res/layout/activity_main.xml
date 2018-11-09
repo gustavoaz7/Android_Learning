@@ -4,81 +4,26 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/tan_background"
+    android:background="@color/primary_color"
     tools:context=".MainActivity">
 
-    <FrameLayout
-        android:id="@+id/numbers_frame"
-        android:layout_width="match_parent"
+    <android.support.design.widget.TabLayout
+        android:id="@+id/tabs"
+        style="@style/CategoryTab"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:background="@color/category_numbers"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.47"
+        app:layout_constraintStart_toStartOf="@+id/viewpager"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/viewpager"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-        <TextView
-            android:id="@+id/numbers"
-            style="@style/CategoryStyle"
-            android:background="?android:attr/selectableItemBackground"
-            android:text="@string/category_numbers"
-            android:textAlignment="center"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-    </FrameLayout>
-
-    <FrameLayout
-        android:id="@+id/family_frame"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/category_family"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/numbers_frame">
-        <TextView
-            android:id="@+id/family"
-            style="@style/CategoryStyle"
-            android:background="?android:attr/selectableItemBackground"
-            android:text="@string/category_family"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/numbers_frame" />
-    </FrameLayout>
-
-    <FrameLayout
-        android:id="@+id/colors_frame"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/category_colors"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/family_frame">
-        <TextView
-            android:id="@+id/colors"
-            style="@style/CategoryStyle"
-            android:background="?android:attr/selectableItemBackground"
-            android:text="@string/category_colors"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/family_frame" />
-    </FrameLayout>
-
-    <FrameLayout
-        android:id="@+id/phrases_frame"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/category_phrases"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/colors_frame">
-        <TextView
-            android:id="@+id/phrases"
-            style="@style/CategoryStyle"
-            android:background="?android:attr/selectableItemBackground"
-            android:text="@string/category_phrases"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/colors_frame" />
-    </FrameLayout>
-
+        app:layout_constraintTop_toBottomOf="@+id/tabs" />
 
 </android.support.constraint.ConstraintLayout>
