@@ -6,6 +6,9 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Circle;
+import com.badlogic.gdx.math.Intersector;
+import com.badlogic.gdx.math.Rectangle;
 
 import java.util.Random;
 
@@ -15,16 +18,22 @@ public class FlappyBird extends ApplicationAdapter {
 	private Texture background;
 	private Texture pipeBottom;
 	private Texture pipeTop;
+	private Texture gameOverText;
 	private Random rand;
 	private BitmapFont font;
+	private BitmapFont restartMessage;
+	private Circle birdCircle;
+	private Rectangle pipeBottomRect;
+	private Rectangle pipeTopRect;
 
 	private int screenWidth;
 	private int screenHeight;
-	private int move = 0;
 	private int fallSpeed = 0;
 	private int birdX;
 	private int birdY;
 	private int pipeX;
+	private int pipeBottomY;
+	private int pipeTopY;
 	private int passageHeight;
 	private int passagePositionY;
 	private int score = 0;
@@ -33,6 +42,7 @@ public class FlappyBird extends ApplicationAdapter {
 	private float deltaTime;
 
 	private boolean gameStarted = false;
+	private boolean gameOver = false;
 	private boolean scored = false;
 
 	@Override
@@ -45,14 +55,24 @@ public class FlappyBird extends ApplicationAdapter {
 		background = new Texture("background.png");
 		pipeBottom = new Texture("pipe_bottom_lg.png");
 		pipeTop = new Texture("pipe_top_lg.png");
+		gameOverText = new Texture("game_over.png");
 		rand = new Random();
+		birdCircle = new Circle();
+		pipeBottomRect = new Rectangle();
+		pipeTopRect = new Rectangle();
+
 		font = new BitmapFont();
 		font.setColor(Color.WHITE);
 		font.getData().setScale(6);
+
+		restartMessage = new BitmapFont();
+		restartMessage.setColor(Color.WHITE);
+		restartMessage.getData().setScale(4);
+
 		screenWidth = Gdx.graphics.getWidth();
 		screenHeight = Gdx.graphics.getHeight();
 		birdX = (int) (screenWidth * 0.2);
-		birdY = screenHeight / 2 -50;
+		birdY = screenHeight / 2 - birds[0].getHeight() / 2;
 		pipeX = screenWidth;
 		passageHeight = 300;
 	}
@@ -70,41 +90,71 @@ public class FlappyBird extends ApplicationAdapter {
 			if (Gdx.input.justTouched()) {
 				gameStarted = true;
 			}
+
 		} else {
+
 			fallSpeed++;
-			pipeX -= deltaTime * 600;
-
-
-
-			if (Gdx.input.justTouched()) {
-				fallSpeed = -20;
-			}
-
 			if (birdY > 0) {
 				birdY -= fallSpeed;
 			}
 
-			if (pipeX < -pipeBottom.getWidth()) {
-				pipeX = screenWidth;
-				passagePositionY = rand.nextInt(400) - 200;
-				scored = false;
+			if (!gameOver) {
+				pipeX -= deltaTime * 600;
+
+				if (Gdx.input.justTouched()) {
+					fallSpeed = -20;
+				}
+
+				if (pipeX < -pipeBottom.getWidth()) {
+					pipeX = screenWidth;
+					passagePositionY = rand.nextInt(400) - 200;
+					scored = false;
+				}
+
+				if (pipeX < birdX) {
+					if (!scored) {
+						score++;
+						scored = true;
+					}
+				}
+			} else {
+                if (Gdx.input.justTouched()) {
+                    gameOver = false;
+                    gameStarted = false;
+                    score = 0;
+                    fallSpeed = 0;
+                    birdY = screenHeight / 2 - birds[0].getHeight() / 2;
+                    pipeX = screenWidth;
+                }
 			}
 
-			if (pipeX < birdX) {
-				if (!scored) {
-					score++;
-					scored = true;
-				}
-			}
 		}
+
+		pipeBottomY = - passageHeight / 2 + passagePositionY;
+		pipeTopY = screenHeight / 2 + passageHeight / 2 + passagePositionY;
 
 		batch.begin();
 		batch.draw(background, 0, 0, screenWidth, screenHeight);
-		batch.draw(pipeTop, pipeX, screenHeight / 2 + passageHeight / 2 + passagePositionY);
-		batch.draw(pipeBottom, pipeX, 0 - passageHeight / 2 + passagePositionY);
+		batch.draw(pipeTop, pipeX, pipeTopY);
+		batch.draw(pipeBottom, pipeX, pipeBottomY );
 		batch.draw(birds[(int) index], birdX, birdY);
 		font.draw(batch, String.valueOf(score), screenWidth / 2, (int) (screenHeight - screenHeight * 0.1));
+		if (gameOver) {
+			batch.draw(gameOverText, screenWidth / 2 - gameOverText.getWidth() / 2, screenHeight / 2);
+			restartMessage.draw(batch, "Touch to restart the game", screenWidth / 2 - 320, screenHeight / 2 - 30);
+		}
 		batch.end();
+
+
+		birdCircle.set(birdX + birds[0].getWidth() / 2, birdY + birds[0].getHeight() / 2, birds[0].getWidth() / 2);
+		pipeBottomRect.set(pipeX, pipeBottomY, pipeBottom.getWidth(), pipeBottom.getHeight());
+		pipeTopRect.set(pipeX, pipeTopY, pipeTop.getWidth(), pipeTop.getHeight());
+
+
+		if (Intersector.overlaps(birdCircle, pipeBottomRect) || Intersector.overlaps(birdCircle, pipeTopRect)
+				|| birdY <= 0 || birdY >= screenHeight) {
+			gameOver = true;
+		}
 	}
 
 }
