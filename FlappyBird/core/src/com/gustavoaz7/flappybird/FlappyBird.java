@@ -3,12 +3,16 @@ package com.gustavoaz7.flappybird;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.utils.viewport.StretchViewport;
+import com.badlogic.gdx.utils.viewport.Viewport;
 
 import java.util.Random;
 
@@ -32,18 +36,20 @@ public class FlappyBird extends ApplicationAdapter {
 	private int birdX;
 	private int birdY;
 	private int pipeX;
-	private int pipeBottomY;
-	private int pipeTopY;
 	private int passageHeight;
 	private int passagePositionY;
 	private int score = 0;
 
 	private float index = 0;
-	private float deltaTime;
 
 	private boolean gameStarted = false;
 	private boolean gameOver = false;
 	private boolean scored = false;
+
+	private OrthographicCamera camera;
+	private Viewport viewport;
+	private final int VIRTUAL_WIDTH = 768;
+	private final int VIRTUAL_HEIGHT = 1024;
 
 	@Override
 	public void create () {
@@ -53,8 +59,8 @@ public class FlappyBird extends ApplicationAdapter {
 		birds[1] = new Texture("bird2.png");
 		birds[2] = new Texture("bird3.png");
 		background = new Texture("background.png");
-		pipeBottom = new Texture("pipe_bottom_lg.png");
-		pipeTop = new Texture("pipe_top_lg.png");
+		pipeBottom = new Texture("pipe_bottom.png");
+		pipeTop = new Texture("pipe_top.png");
 		gameOverText = new Texture("game_over.png");
 		rand = new Random();
 		birdCircle = new Circle();
@@ -69,8 +75,13 @@ public class FlappyBird extends ApplicationAdapter {
 		restartMessage.setColor(Color.WHITE);
 		restartMessage.getData().setScale(4);
 
-		screenWidth = Gdx.graphics.getWidth();
-		screenHeight = Gdx.graphics.getHeight();
+		camera = new OrthographicCamera();
+		camera.position.set(VIRTUAL_WIDTH / 2, VIRTUAL_HEIGHT / 2, 0);
+		viewport = new StretchViewport(VIRTUAL_WIDTH, VIRTUAL_HEIGHT, camera);
+
+		screenWidth = VIRTUAL_WIDTH;
+		screenHeight = VIRTUAL_HEIGHT;
+
 		birdX = (int) (screenWidth * 0.2);
 		birdY = screenHeight / 2 - birds[0].getHeight() / 2;
 		pipeX = screenWidth;
@@ -79,7 +90,13 @@ public class FlappyBird extends ApplicationAdapter {
 
 	@Override
 	public void render () {
-		deltaTime = Gdx.graphics.getDeltaTime();
+
+		camera.update();
+
+		// Clear previous frames
+		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT);
+
+		float deltaTime = Gdx.graphics.getDeltaTime();
 
 		index += deltaTime * 9;
 		if (index >= 3) {
@@ -102,7 +119,7 @@ public class FlappyBird extends ApplicationAdapter {
 				pipeX -= deltaTime * 600;
 
 				if (Gdx.input.justTouched()) {
-					fallSpeed = -20;
+					fallSpeed = -15;
 				}
 
 				if (pipeX < -pipeBottom.getWidth()) {
@@ -130,23 +147,26 @@ public class FlappyBird extends ApplicationAdapter {
 
 		}
 
-		pipeBottomY = - passageHeight / 2 + passagePositionY;
-		pipeTopY = screenHeight / 2 + passageHeight / 2 + passagePositionY;
+		int pipeBottomY = - passageHeight / 2 + passagePositionY;
+		int pipeTopY = screenHeight / 2 + passageHeight / 2 + passagePositionY;
+		int centerWidth = screenWidth / 2;
+		int centerHeight = screenHeight / 2;
+
+		batch.setProjectionMatrix(camera.combined);
 
 		batch.begin();
 		batch.draw(background, 0, 0, screenWidth, screenHeight);
 		batch.draw(pipeTop, pipeX, pipeTopY);
 		batch.draw(pipeBottom, pipeX, pipeBottomY );
 		batch.draw(birds[(int) index], birdX, birdY);
-		font.draw(batch, String.valueOf(score), screenWidth / 2, (int) (screenHeight - screenHeight * 0.1));
+		font.draw(batch, String.valueOf(score), centerWidth, (int) (screenHeight - screenHeight * 0.1));
 		if (gameOver) {
-			batch.draw(gameOverText, screenWidth / 2 - gameOverText.getWidth() / 2, screenHeight / 2);
-			restartMessage.draw(batch, "Touch to restart the game", screenWidth / 2 - 320, screenHeight / 2 - 30);
+			batch.draw(gameOverText, (float) (centerWidth - gameOverText.getWidth() / 2), centerHeight);
+			restartMessage.draw(batch, "Touch to restart the game",  centerWidth - 320, centerHeight - 30);
 		}
 		batch.end();
 
-
-		birdCircle.set(birdX + birds[0].getWidth() / 2, birdY + birds[0].getHeight() / 2, birds[0].getWidth() / 2);
+		birdCircle.set(birdX + (float) birds[0].getWidth() / 2, (float) (birdY + birds[0].getHeight() / 2), (float) birds[0].getWidth() / 2);
 		pipeBottomRect.set(pipeX, pipeBottomY, pipeBottom.getWidth(), pipeBottom.getHeight());
 		pipeTopRect.set(pipeX, pipeTopY, pipeTop.getWidth(), pipeTop.getHeight());
 
@@ -156,5 +176,10 @@ public class FlappyBird extends ApplicationAdapter {
 			gameOver = true;
 		}
 	}
+
+	@Override
+    public void resize(int width, int height) {
+	    viewport.update(width, height);
+    }
 
 }
