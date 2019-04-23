@@ -20,7 +20,7 @@
         app:srcCompat="@drawable/logo" />
 
     <EditText
-        android:id="@+id/editText"
+        android:id="@+id/login_name"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
@@ -38,7 +38,7 @@
         app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
     <EditText
-        android:id="@+id/editText3"
+        android:id="@+id/login_phone_country"
         android:layout_width="50dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
@@ -48,11 +48,11 @@
         android:inputType="number"
         android:textColor="@color/textColorPrimary"
         android:textColorLink="@android:color/white"
-        app:layout_constraintStart_toStartOf="@+id/editText"
-        app:layout_constraintTop_toBottomOf="@+id/editText" />
+        app:layout_constraintStart_toStartOf="@+id/login_name"
+        app:layout_constraintTop_toBottomOf="@+id/login_name" />
 
     <EditText
-        android:id="@+id/editText4"
+        android:id="@+id/login_phone_area"
         android:layout_width="50dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -63,26 +63,27 @@
         android:inputType="number"
         android:textColor="@color/textColorPrimary"
         android:textColorLink="@android:color/white"
-        app:layout_constraintBottom_toBottomOf="@+id/editText3"
-        app:layout_constraintStart_toEndOf="@+id/editText3" />
+        app:layout_constraintBottom_toBottomOf="@+id/login_phone_country"
+        app:layout_constraintStart_toEndOf="@+id/login_phone_country" />
 
     <EditText
-        android:id="@+id/editText5"
+        android:id="@+id/login_phone"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
         android:ems="10"
         android:gravity="center"
+        android:hint="99999-9999"
         android:inputType="number"
         android:textColor="@color/textColorPrimary"
         android:textColorLink="@android:color/white"
-        app:layout_constraintBottom_toBottomOf="@+id/editText3"
-        app:layout_constraintEnd_toEndOf="@+id/editText"
-        app:layout_constraintStart_toEndOf="@+id/editText4" />
+        app:layout_constraintBottom_toBottomOf="@+id/login_phone_country"
+        app:layout_constraintEnd_toEndOf="@+id/login_name"
+        app:layout_constraintStart_toEndOf="@+id/login_phone_area" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/login_register_btn"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
@@ -90,8 +91,8 @@
         android:text="Register"
         android:textColor="@color/textColorPrimary"
         android:textColorLink="@color/textColorPrimary"
-        app:layout_constraintEnd_toEndOf="@+id/editText5"
-        app:layout_constraintStart_toStartOf="@+id/editText3"
-        app:layout_constraintTop_toBottomOf="@+id/editText3" />
+        app:layout_constraintEnd_toEndOf="@+id/login_phone"
+        app:layout_constraintStart_toStartOf="@+id/login_phone_country"
+        app:layout_constraintTop_toBottomOf="@+id/login_phone_country" />
 
 </android.support.constraint.ConstraintLayout>
