@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">WhatsApp</string>
+    <string name="login_name_hint">Name</string>
+    <string name="validation_title">Validation</string>
+    <string name="validation_description">Fill in the following field with the validation code provided via SMS</string>
+    <string name="validation_button">Validate</string>
 </resources>
